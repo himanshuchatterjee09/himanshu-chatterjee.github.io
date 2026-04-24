@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Himanshu Chatterjee — Data & AI Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a24;
+    --accent: #00e5a0;
+    --accent2: #0099ff;
+    --text: #f0f0f5;
+    --muted: #7a7a90;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(0,229,160,0.3);
+    --card: rgba(255,255,255,0.03);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(20px);
+    background: rgba(10,10,15,0.8);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 8px 20px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent); color: #000; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(0,229,160,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 70%, rgba(0,153,255,0.04) 0%, transparent 50%);
+  }
+
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-left { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(52px, 6vw, 80px);
+    font-weight: 400;
+    line-height: 1.0;
+    letter-spacing: -2px;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-name .italic { font-style: italic; color: var(--accent); }
+
+  .hero-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    color: rgba(240,240,245,0.7);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--accent);
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,229,160,0.3); }
+
+  .btn-ghost {
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    border-radius: 2px;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 4rem;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+
+  .stat-card:hover {
+    border-color: var(--border-hover);
+    transform: translateX(8px);
+  }
+
+  .stat-num-big {
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .stat-info-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .stat-info-desc {
+    font-size: 14px;
+    color: rgba(240,240,245,0.8);
+  }
+
+  /* SECTION BASE */
+  section {
+    padding: 7rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 400;
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg2); max-width: 100%; padding: 7rem 0; }
+  #experience .inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .exp-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+  }
+
+  .exp-card:hover, .exp-card.active {
+    background: var(--bg3);
+    border-color: rgba(0,229,160,0.2);
+  }
+
+  .exp-card:hover::before, .exp-card.active::before {
+    transform: scaleY(1);
+  }
+
+  .exp-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .exp-role {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .exp-company {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.25rem;
+  }
+
+  .exp-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .exp-card.active .exp-details {
+    max-height: 400px;
+  }
+
+  .exp-details ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .exp-details li {
+    font-size: 14px;
+    color: rgba(240,240,245,0.7);
+    line-height: 1.75;
+    padding: 6px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .exp-details li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  .exp-toggle {
+    margin-top: 1rem;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    opacity: 0.7;
+  }
+
+  /* SKILLS */
+  .skills-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.75rem;
+    transition: border-color 0.3s;
+  }
+
+  .skill-group:hover { border-color: rgba(0,229,160,0.2); }
+
+  .skill-group-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .skill-group-icon::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .skill-pills-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .skill-pill {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: rgba(240,240,245,0.8);
+    background: rgba(255,255,255,0.02);
+    cursor: default;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .skill-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,229,160,0.05);
+  }
+
+  /* IMPACT / NUMBERS */
+  .impact-section {
+    background: var(--bg2);
+    max-width: 100%;
+    padding: 6rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .impact-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .impact-item {
+    background: var(--bg2);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .impact-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 64px;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .impact-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    line-height: 1.5;
+  }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    background: var(--card);
+    transition: border-color 0.3s;
+  }
+
+  .edu-card:hover { border-color: rgba(0,229,160,0.25); }
+
+  .edu-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    background: rgba(0,229,160,0.1);
+    color: var(--accent);
+    border: 1px solid rgba(0,229,160,0.3);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+  }
+
+  .edu-degree {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-school {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .edu-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* CONTACT */
+  .contact-section {
+    text-align: center;
+    padding: 8rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,229,160,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .contact-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-heading {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 400;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-heading em { font-style: italic; color: var(--accent); }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 12px 24px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: color 0.2s, border-color 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .contact-link:hover { color: var(--accent); border-color: rgba(0,229,160,0.4); }
+
+  .contact-link .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.85em;
+    background: var(--accent);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1.1s infinite;
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.25s; }
+  .fade-up:nth-child(3) { animation-delay: 0.4s; }
+  .fade-up:nth-child(4) { animation-delay: 0.55s; }
+  .fade-up:nth-child(5) { animation-delay: 0.7s; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+    .hero-right { padding-left: 0; margin-top: 3rem; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .skills-wrapper { grid-template-columns: 1fr 1fr; }
+    .impact-inner { grid-template-columns: 1fr 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    section { padding: 5rem 1.5rem; }
+    #experience .inner { padding: 0 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">HC // Data & AI</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:himanshu.chatterjee@accenture.com" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="about">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-up">Associate Manager · Accenture UK</div>
+    <h1 class="hero-name fade-up">Himanshu<br><span class="italic">Chatterjee</span><span class="cursor"></span></h1>
+    <p class="hero-title fade-up">Azure ML & Data Science · London, UK</p>
+    <p class="hero-desc fade-up">Tech Lead with 12+ years building AI, automation, and payments systems. Currently leading AI initiatives and real-time payments observability at Nationwide Building Society.</p>
+    <div class="hero-actions fade-up">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-ghost">Contact Me</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-card fade-up">
+      <div class="stat-num-big">12+</div>
+      <div>
+        <div class="stat-info-label">Years of experience</div>
+        <div class="stat-info-desc">Software, Automation & Advanced Analytics</div>
+      </div>
+    </div>
+    <div class="stat-card fade-up">
+      <div class="stat-num-big">30+</div>
+      <div>
+        <div class="stat-info-label">Team managed</div>
+        <div class="stat-info-desc">Engineers across Data, DevOps & Software</div>
+      </div>
+    </div>
+    <div class="stat-card fade-up">
+      <div class="stat-num-big">£1M</div>
+      <div>
+        <div class="stat-info-label">Projected annual value</div>
+        <div class="stat-info-desc">Self-heal PoC funded by Accenture UKI</div>
+      </div>
+    </div>
+    <div class="stat-card fade-up">
+      <div class="stat-num-big">900K</div>
+      <div>
+        <div class="stat-info-label">Lines of code analysed</div>
+        <div class="stat-info-desc">LLM-driven Code Intelligence solution</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IMPACT BAR -->
+<div class="impact-section">
+  <div class="impact-inner">
+    <div class="impact-item">
+      <div class="impact-num">80%</div>
+      <div class="impact-label">Onboarding time reduction via LLM Code Intelligence</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-num">50%</div>
+      <div class="impact-label">MTTR reduction with Dynatrace SLO dashboards</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-num">300K+</div>
+      <div class="impact-label">Incidents analysed using NLP & ML clustering</div>
+    </div>
+    <div class="impact-item">
+      <div class="impact-num">50+</div>
+      <div class="impact-label">Automation opportunities identified & mapped</div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div id="experience" style="background: var(--bg2); border-top: 1px solid var(--border);">
+  <div style="max-width:1200px; margin:0 auto; padding:7rem 3rem;">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Work <em>Experience</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-grid">
+
+      <div class="exp-card active" onclick="toggleExp(this)">
+        <div class="exp-period">Current · Onsite</div>
+        <div class="exp-role">Tech Lead — AMS, Automations & Observability</div>
+        <div class="exp-company">Accenture @ Nationwide Building Society, UK</div>
+        <div class="exp-toggle">[ click to expand ]</div>
+        <div class="exp-details">
+          <ul>
+            <li>Service delivery & maintenance of real-time and card payments for the UK's largest building society</li>
+            <li>Observability with SLO/SLI frameworks; delivered Dynatrace dashboard for CHAPS Payments</li>
+            <li>SME for UKI Payments: Faster Payments, BACS, CHAPS, SWIFT, SEPA, Cheque Clearing</li>
+            <li>Appointed developer for Accenture UKI "AI Tribe" — driving AI awareness & capability</li>
+            <li>Managing 30+ resources across Data, DevOps and Software Engineering streams</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Dynatrace</span><span class="tag">SLO/SLI</span><span class="tag">Payments</span><span class="tag">AI Tribe</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card" onclick="toggleExp(this)">
+        <div class="exp-period">Innovation Project</div>
+        <div class="exp-role">LLM Code Intelligence — Lead Developer</div>
+        <div class="exp-company">Accenture UKI Innovation</div>
+        <div class="exp-toggle">[ click to expand ]</div>
+        <div class="exp-details">
+          <ul>
+            <li>Led development of LLM-driven legacy Code Intelligence solution</li>
+            <li>Segmented 900K+ lines of code by Projects, Classes and Methods</li>
+            <li>Produced DTD and DFTD mappings for full code comprehension</li>
+            <li>PoC projected to reduce onboarding time and migration analysis by ~80%</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">LLMs</span><span class="tag">GPT</span><span class="tag">Code Analysis</span><span class="tag">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card" onclick="toggleExp(this)">
+        <div class="exp-period">Self-Heal PoC · £1M Value</div>
+        <div class="exp-role">AI Self-Healing Infrastructure Lead</div>
+        <div class="exp-company">Accenture UKI Innovation Budget</div>
+        <div class="exp-toggle">[ click to expand ]</div>
+        <div class="exp-details">
+          <ul>
+            <li>Leading funded PoC for self-healing App/Infra using Davis AI (Dynatrace), ServiceNow & Ansible</li>
+            <li>Team of 3 engineers: Data & AI (L8), DevOps (L9), Programmer (L10)</li>
+            <li>Submitted white paper on Dynatrace–ServiceNow Integration for self-healing</li>
+            <li>Expected annual value on completion: £1M+</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Dynatrace</span><span class="tag">ServiceNow</span><span class="tag">Ansible</span><span class="tag">Davis AI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card" onclick="toggleExp(this)">
+        <div class="exp-period">Advanced Analytics</div>
+        <div class="exp-role">NLP & ML Incident Analytics</div>
+        <div class="exp-company">Accenture — Enterprise Analytics</div>
+        <div class="exp-toggle">[ click to expand ]</div>
+        <div class="exp-details">
+          <ul>
+            <li>Analysed 300K+ incidents using NLP (TF-IDF, Transformer Embeddings)</li>
+            <li>Applied K-Means clustering and Topic Modelling (LDA) to surface patterns</li>
+            <li>Identified 50+ automation opportunities, enabling an automation roadmap</li>
+            <li>Enabled incremental vendor revenue generation through automation insights</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">NLP</span><span class="tag">TF-IDF</span><span class="tag">K-Means</span><span class="tag">LDA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card" onclick="toggleExp(this)" style="grid-column: 1 / -1;">
+        <div class="exp-period">AI Maturity Assessment</div>
+        <div class="exp-role">AI Maturity Index — Solution Builder</div>
+        <div class="exp-company">Accenture — Enterprise AI</div>
+        <div class="exp-toggle">[ click to expand ]</div>
+        <div class="exp-details">
+          <ul>
+            <li>Built AI Maturity Index PoC to assess enterprise AI adoption readiness across organisations</li>
+            <li>Stack: Microsoft Forms · Python · Transformer Embeddings · Cosine Similarity</li>
+            <li>Delivered actionable scoring framework for C-suite stakeholders</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Python</span><span class="tag">Transformers</span><span class="tag">Cosine Similarity</span><span class="tag">Enterprise AI</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Skills & <em>Expertise</em></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-wrapper">
+    <div class="skill-group">
+      <div class="skill-group-icon">ML / AI</div>
+      <div class="skill-pills-wrap">
+        <span class="skill-pill">LLMs (GPT)</span>
+        <span class="skill-pill">NLP</span>
+        <span class="skill-pill">Deep Neural Networks</span>
+        <span class="skill-pill">ML Ops</span>
+        <span class="skill-pill">Feature Engineering</span>
+        <span class="skill-pill">Transformers</span>
+        <span class="skill-pill">Topic Modelling</span>
+        <span class="skill-pill">Classic ML</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">Data & Cloud</div>
+      <div class="skill-pills-wrap">
+        <span class="skill-pill">Azure ML</span>
+        <span class="skill-pill">Databricks</span>
+        <span class="skill-pill">MSSQL</span>
+        <span class="skill-pill">MongoDB</span>
+        <span class="skill-pill">Docker</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">Automation & Observability</div>
+      <div class="skill-pills-wrap">
+        <span class="skill-pill">Dynatrace</span>
+        <span class="skill-pill">ServiceNow</span>
+        <span class="skill-pill">Ansible</span>
+        <span class="skill-pill">SLO / SLI</span>
+        <span class="skill-pill">Davis AI</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">Software Engineering</div>
+      <div class="skill-pills-wrap">
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">FastAPI</span>
+        <span class="skill-pill">Flask</span>
+        <span class="skill-pill">C#</span>
+        <span class="skill-pill">.NET / WCF</span>
+        <span class="skill-pill">BizTalk</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">Banking Domain</div>
+      <div class="skill-pills-wrap">
+        <span class="skill-pill">Faster Payments</span>
+        <span class="skill-pill">CHAPS</span>
+        <span class="skill-pill">SWIFT</span>
+        <span class="skill-pill">BACS</span>
+        <span class="skill-pill">SEPA</span>
+        <span class="skill-pill">Cheque Clearing</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">Visualisation & BI</div>
+      <div class="skill-pills-wrap">
+        <span class="skill-pill">Dynatrace</span>
+        <span class="skill-pill">Tableau</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<div style="background: var(--bg2); border-top: 1px solid var(--border);">
+  <section id="education">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Education & <em>Certifications</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-badge">In Progress · 2024–2026</div>
+        <div class="edu-degree">MSc Machine Learning & Data Analytics</div>
+        <div class="edu-school">Woolf University (ECTS Credit) — Work Integrated Learning</div>
+        <div class="edu-year">Expected completion: July 2026</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-badge">Undergraduate</div>
+        <div class="edu-degree">B.Eng. Electrical & Electronics Engineering</div>
+        <div class="edu-school">Engineering & Technology</div>
+        <div class="edu-year">Foundation degree</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-badge">Certification</div>
+        <div class="edu-degree">Microsoft Certified Data Scientist</div>
+        <div class="edu-school">Microsoft</div>
+        <div class="edu-year">Active certification</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-badge">Certification</div>
+        <div class="edu-degree">Data Science Certification</div>
+        <div class="edu-school">IIT (Indian Institutes of Technology)</div>
+        <div class="edu-year">Professional credential</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-badge">Certification</div>
+        <div class="edu-degree">Certified Automation Engineer</div>
+        <div class="edu-school">Accenture</div>
+        <div class="edu-year">Internal accreditation</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="contact-section">
+  <p class="contact-subtitle">Let's connect</p>
+  <h2 class="contact-heading">Open to<br><em>new conversations</em></h2>
+  <p style="color: var(--muted); font-size: 16px; max-width: 480px; margin: 0 auto; line-height: 1.8;">Whether you're looking for a Data & AI lead, a payments SME, or want to collaborate on an innovation project — reach out.</p>
+  <div class="contact-links">
+    <a href="mailto:himanshu.chatterjee@accenture.com" class="contact-link"><span class="dot"></span> himanshu.chatterjee@accenture.com</a>
+
+    <a href="#" class="contact-link"><span class="dot"></span> LinkedIn</a>
+    <a href="#" class="contact-link"><span class="dot"></span> GitHub</a>
+    <a href="#" class="contact-link"><span class="dot"></span> ML Blog</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Himanshu Chatterjee</span>
+  <span>Associate Manager · Azure ML & Data Science · Accenture UK</span>
+  <span>Built with intention</span>
+</footer>
+
+<script>
+  function toggleExp(card) {
+    const isActive = card.classList.contains('active');
+    document.querySelectorAll('.exp-card').forEach(c => c.classList.remove('active'));
+    if (!isActive) card.classList.add('active');
+    const toggle = card.querySelector('.exp-toggle');
+    document.querySelectorAll('.exp-toggle').forEach(t => t.textContent = '[ click to expand ]');
+    if (!isActive) toggle.textContent = '[ click to collapse ]';
+  }
+
+  // Intersection Observer for scroll-triggered fade
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-group, .edu-card, .impact-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // Smooth active nav link
+  const sections = document.querySelectorAll('[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+</script>
+</body>
+</html>
