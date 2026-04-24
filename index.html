@@ -1057,9 +1057,9 @@
     observer.observe(el);
   });
 
-  // Smooth active nav link
+  // Smooth active nav link (internal anchor links only)
   const sections = document.querySelectorAll('[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(s => {
